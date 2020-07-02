@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     # Third party packages
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+
+    # my application
+    'api'
 ]
 
 MIDDLEWARE = [
