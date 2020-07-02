@@ -2,7 +2,7 @@ from .serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, AllowAny
 from django.contrib.auth.models import User
 
 
@@ -21,6 +21,9 @@ class UserRecordView(APIView):
 
 
 class CreateUserView(APIView):
+
+    permission_classes = [AllowAny]
+
     def post(self, request):
         serializers = UserSerializer(data=request.data)
         if serializers.is_valid(raise_exception=ValueError):
