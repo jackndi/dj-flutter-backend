@@ -30,4 +30,5 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
-        models = models.Course
+        model = models.Course
+        fields = '__all__'
