@@ -19,6 +19,8 @@ class UserRecordView(APIView):
         serializers = UserSerializer(users, many=True)
         return Response(serializers.data)
 
+
+class CreateUserView(APIView):
     def post(self, request):
         serializers = UserSerializer(data=request.data)
         if serializers.is_valid(raise_exception=ValueError):
