@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
+
 class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validate_data):
@@ -14,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             'username',
             'first_name',
             'last_name',
-            'email',
+            # 'email',
             'password'
         )
 
