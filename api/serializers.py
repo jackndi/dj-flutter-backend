@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
+from . import  models
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -25,3 +26,8 @@ class UserSerializer(serializers.ModelSerializer):
                 fields=['username']
             )
         ]
+
+
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = models.Course

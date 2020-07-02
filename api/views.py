@@ -1,9 +1,12 @@
-from .serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
 from django.contrib.auth.models import User
+
+from .serializers import UserSerializer, CourseSerializer
+
+from .models import Course
 
 
 class UserRecordView(APIView):
@@ -21,7 +24,6 @@ class UserRecordView(APIView):
 
 
 class CreateUserView(APIView):
-
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -42,11 +44,9 @@ class CreateUserView(APIView):
 
 
 class CourseAPIView(APIView):
-
     permission_classes = [IsAuthenticated]
 
     def get(self, format=None):
-        users = User.objects.all()
-        serializers = UserSerializer(users, many=True)
+        courses = Course.objects.all()
+        serializers = CourseSerializer(courses, many=True)
         return Response(serializers.data)
-
