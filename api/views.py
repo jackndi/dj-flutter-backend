@@ -50,3 +50,23 @@ class CourseAPIView(APIView):
         courses = Course.objects.all()
         serializers = CourseSerializer(courses, many=True)
         return Response(serializers.data)
+
+    def post(self, request):
+        course = request.data
+        course['instructor'] = request.user.id
+        print(course)
+        serializers = CourseSerializer(data=course)
+        if serializers.is_valid(raise_exception=ValueError):
+            serializers.save()
+            return Response(
+                serializers.data,
+                status=status.HTTP_201_CREATED
+            )
+
+        return Response(
+            {
+                "error": True,
+                "error_msg": serializers.error_messages,
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
