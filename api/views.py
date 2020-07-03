@@ -91,7 +91,7 @@ class TrackableItemSubAPIView(APIView):
         id = self.request.query_params.get("id", None)
         print("id : ", id)
         if id:
-            trackable_items = TrackableItem.objects.filter(trackable_items__isnull=False)
+            trackable_items = TrackableItem.objects.filter(trackable_items__id=id)
             serializers = TrackableItemSerializer(trackable_items, many=True)
             return Response(serializers.data)
         else:
