@@ -81,3 +81,18 @@ class TrackableItemAPIView(APIView):
         trackable_items = TrackableItem.objects.filter(trackable_items__isnull=True)
         serializers = TrackableItemSerializer(trackable_items, many=True)
         return Response(serializers.data)
+
+
+class TrackableItemSubAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        # get the parent Trackable Item
+        id = self.request.query_params.get("id", None)
+        print("id : ", id)
+        if id:
+            trackable_items = TrackableItem.objects.filter(trackable_items__isnull=False)
+            serializers = TrackableItemSerializer(trackable_items, many=True)
+            return Response(serializers.data)
+        else:
+            return Response([])
