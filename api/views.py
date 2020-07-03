@@ -77,6 +77,6 @@ class TrackableItemAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, format=None):
-        trackable_items = TrackableItem.objects.all()
+        trackable_items = TrackableItem.objects.filter(ti_type="assigment")
         serializers = TrackableItemSerializer(trackable_items, many=True)
         return Response(serializers.data)
