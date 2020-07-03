@@ -25,7 +25,7 @@ class TrackableItem(models.Model):
     available_date = models.DateTimeField(default=timezone.now)
     due_date = models.DateTimeField(default=(timezone.now() + datetime.timedelta(days=14)))
     estimated_time = models.IntegerField(default=8)
-    trackable_items = models.ForeignKey('self', on_delete=models.CASCADE)
+    trackable_items = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     Type = (("assigment", "Assigment"),
             ("sub-assignment", "Sub Assigment"),
             ("oh", "Office Hours"),

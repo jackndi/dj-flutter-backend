@@ -4,9 +4,9 @@ from rest_framework import status
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
 from django.contrib.auth.models import User
 
-from .serializers import UserSerializer, CourseSerializer
+from .serializers import UserSerializer, CourseSerializer, TrackableItemSerializer
 
-from .models import Course
+from .models import Course, TrackableItem
 
 
 class UserRecordView(APIView):
@@ -53,6 +53,7 @@ class CourseAPIView(APIView):
 
     def post(self, request):
         course = request.data
+        # get the authenticated user from the token
         course['instructor'] = request.user.id
         print(course)
         serializers = CourseSerializer(data=course)
@@ -70,3 +71,12 @@ class CourseAPIView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
+
+
+class TrackableItemAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, format=None):
+        trackable_items = TrackableItem.objects.all()
+        serializers = TrackableItemSerializer(trackable_items, many=True)
+        return Response(serializers.data)

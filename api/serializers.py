@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from . import  models
+from . import models
+
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -31,4 +32,12 @@ class UserSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Course
+        fields = '__all__'
+
+
+class TrackableItemSerializer(serializers.ModelSerializer):
+    course_name = serializers.ReadOnlyField(source='course.title', read_only=True)
+
+    class Meta:
+        model = models.TrackableItem
         fields = '__all__'
